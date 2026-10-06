@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BoltGuard</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060f1f;--side:#08162b;--card:#0b1b33;--line:#17304f;--ink:#e8f0fa;--mute:#8aa0ba;--acc:#2a8cff;--ok:#19d57f;--warn:#ffa927;--bad:#ff4d4d;--car:#1d3a5f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#eef3f9;--side:#fff;--card:#fff;--line:#d5deea;--ink:#0d1b2e;--mute:#566b83;--acc:#1769d1;--ok:#0f9d5a;--warn:#c97a00;--bad:#d93a3a;--car:#c9d8ea}}
+:root[data-theme="light"]{--bg:#eef3f9;--side:#fff;--card:#fff;--line:#d5deea;--ink:#0d1b2e;--mute:#566b83;--acc:#1769d1;--ok:#0f9d5a;--warn:#c97a00;--bad:#d93a3a;--car:#c9d8ea}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 14px/1.4 Barlow,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--side)}
+.logo{display:flex;gap:10px;align-items:center}.logo b{font-size:22px;letter-spacing:.5px;display:block;line-height:1}.logo span{font-size:12px;color:var(--mute)}
+.hr{display:flex;gap:12px;align-items:center;font-size:13px;color:var(--mute)}
+.pill{padding:4px 12px;border-radius:99px;background:#19d57f22;color:var(--ok);font-weight:600;font-size:12px}
+.wrap{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 60px)}
+nav{background:var(--side);border-right:1px solid var(--line);padding:12px 10px;display:flex;flex-direction:column;gap:4px}
+nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border:0;border-radius:6px;background:none;color:var(--mute);font:500 14px Barlow,sans-serif;cursor:pointer}
+nav button.on{background:var(--acc);color:#fff}nav button:hover:not(.on){background:var(--line)}
+.bd{margin-left:auto;background:var(--bad);color:#fff;border-radius:99px;font-size:11px;padding:0 7px}.bd:empty{display:none}
+nav small{margin-top:auto;color:var(--mute);font-size:11px;padding:8px}
+main{padding:16px;min-width:0}
+h1{font-size:20px;margin:0 0 12px}h2{font-size:14px;margin:0 0 10px;letter-spacing:.4px;font-weight:600}
+.c{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:14px;min-width:0}
+.mute{color:var(--mute)}.sm{font-size:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.g2{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.e2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.k{display:flex;gap:12px;align-items:center}.k .i{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:var(--line)}
+.k b,.t b{font-size:26px;font-weight:600;display:block;line-height:1.1}.t{border-left:3px solid var(--line);padding-left:10px}.t b{font-size:20px}
+.d{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--mute)}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}.d.ok{background:var(--ok)}.d.warn{background:var(--warn)}.d.bad{background:var(--bad)}
+.tag{display:inline-block;padding:1px 9px;border-radius:5px;font-size:12px;font-weight:600;background:var(--line)}
+.tag.ok{background:#19d57f22}.tag.warn{background:#ffa92722}.tag.bad{background:#ff4d4d22}
+canvas{width:100%;display:block}
+select,input,button.b{font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 10px}
+button.b{cursor:pointer}button.b:hover{border-color:var(--acc)}button.p{background:var(--acc);border-color:var(--acc);color:#fff}button.x{border-color:var(--bad);color:var(--bad)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.z{border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}.z.warn{border-color:var(--warn);background:#ffa92714}.z.ok{border-color:#19d57f55}.z.bad{border-color:var(--bad);background:#ff4d4d14}
+.tb{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--mute);font-weight:500}
+tr[data-a]{cursor:pointer}tr.sel td{background:#2a8cff1c}
+.ev{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}.ev:last-child{border:0}
+.car{width:100%;max-width:210px;display:block;margin:auto}.car text{fill:var(--ink);font-size:11px;font-weight:600}.car .mute{fill:var(--mute);font-size:8px;font-weight:400}
+.sp{display:flex;align-items:flex-end;gap:4px;height:80px}.sp i{flex:1;background:var(--acc);border-radius:2px 2px 0 0}
+.al{border-left:4px solid var(--mute);padding-left:12px;margin-bottom:12px}.al.warn{border-color:var(--warn)}.al.bad{border-color:var(--bad)}.al.ok{border-color:var(--ok)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:4px 14px;margin:6px 0 8px}.kv span{display:block;font-size:12px;color:var(--mute)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.flow>div{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 12px}
+.ex{background:var(--bg);border-left:3px solid var(--warn);padding:10px 12px;border-radius:4px;font-size:15px}
+.tg{display:flex;gap:8px;flex-wrap:wrap}.tg button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--acc);color:#fff;padding:9px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90vw}#toast.on{opacity:1}
+#c3d{touch-action:none;cursor:grab}main{transition:padding .4s}
+#sl{position:fixed;left:208px;top:70px;bottom:14px;width:330px;overflow-y:auto;z-index:6;pointer-events:none;display:flex;flex-direction:column;gap:10px}
+.sp3{flex:none;pointer-events:auto;position:relative;background:var(--card);border:1px solid var(--acc);border-left-width:4px;border-radius:6px;padding:12px 14px;box-shadow:0 0 22px #2a8cff33;backdrop-filter:blur(8px);transform:translateX(calc(-100% - 230px));opacity:0;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .4s}
+.sp3.in{transform:none;opacity:1}
+.sp3:before,.sp3:after{content:"";position:absolute;right:-1px;width:12px;height:12px;border:2px solid var(--acc)}
+.sp3:before{top:-1px;border-left:0;border-bottom:0}.sp3:after{bottom:-1px;border-left:0;border-top:0}
+.ph{display:flex;gap:10px;align-items:center;margin-bottom:8px;letter-spacing:.5px}.ph .b{margin-left:auto;padding:2px 8px}
+.big{font-size:44px;font-weight:700;line-height:1}.fi{padding:6px 0;border-bottom:1px solid var(--line)}
+.rk{display:grid;grid-template-columns:54px 1fr 40px;gap:8px;align-items:center;margin:5px 0;font-size:12px}.rk div{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.rk i{display:block;height:100%}.rk i.ok{background:var(--ok)}.rk i.warn{background:var(--warn)}.rk i.bad{background:var(--bad)}
+#jv{position:fixed;inset:0;z-index:20;background:radial-gradient(circle at center,#06182e,#02060d);opacity:0;pointer-events:none;transition:opacity .4s}#jv.on{opacity:1;pointer-events:auto}
+#jc{position:absolute;inset:0;width:100%;height:100%}
+#jlog,#jr{position:absolute;font-size:12px;line-height:1.6;color:#7fd8ff}#jlog{left:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));max-width:46vw}#jr{right:20px;top:calc(20px + env(safe-area-inset-top,0px));text-align:right}#jr b{color:#fff}
+#jx{position:absolute;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+@media (min-width:901px){body.pan main{padding-left:362px}}
+@media (max-width:900px){#sl{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-height:50vh}.sp3{transform:translateX(-120%)}body.pan main{padding-bottom:52vh}}
+@media (max-width:900px){.wrap{grid-template-columns:1fr}nav{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}nav button{width:auto;white-space:nowrap}nav small{display:none}.g4,.g2,.e2,.g3{grid-template-columns:1fr 1fr}.g2,.e2{grid-template-columns:1fr}.g5{grid-template-columns:repeat(2,1fr)}.hr .dt{display:none}}
+@media (max-width:520px){.g4,.g3{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header>
+ <div class="logo"><svg width="34" height="38" viewBox="0 0 34 38"><path d="M17 2L31 7V19C31 28 25 33 17 36C9 33 3 28 3 19V7Z" fill="none" stroke="var(--acc)" stroke-width="3"/><path d="M12 22L17 10L22 22Z" fill="var(--acc)"/></svg><div><b>BOLTGUARD</b><span>Structural Fastener Intelligence</span></div></div>
+ <div class="hr"><span class="pill">● SYSTEM ONLINE</span><span class="dt" id="clk"></span><button class="b" data-a="theme" aria-label="Toggle theme">◐</button></div>
+</header>
+<div class="wrap">
+<nav id="nav"></nav>
+<main id="main"></main>
+</div>
+<div id="toast"></div>
+<div id="sl"></div>
+<div id="jv"><canvas id="jc"></canvas><div id="jr"></div><div id="jlog"></div><button class="b x" id="jx" data-a="jx">Cancel</button></div>
+<script>
+const $=s=>document.querySelector(s),f=(v,d=1)=>(+v).toFixed(d),mean=a=>a.reduce((x,y)=>x+y,0)/a.length,cl=(v,a,b)=>Math.max(a,Math.min(b,v));
+const TH={w:4.5,c:7.5},R={'30 s':30,'5 min':300,'30 min':1800,'1 hour':3600};
+const S={v:'overview',sel:'BG-S04',cmp:'',veh:'KBX 482A',range:'5 min',rec:0,n:{Dashboard:1,Email:1,SMS:0,Mobile:1},ig:{'IoT gateway':1,'Cloud storage':1,'Fleet system':0,'Maintenance system':0,Webhooks:0}};
+let T=3600,an=105,wn=2042,flag=0;
+const st=v=>v>=TH.c?'bad':v>=TH.w?'warn':'ok',stT={ok:'SECURE',warn:'WARNING',bad:'CRITICAL'},stN={ok:'Healthy',warn:'Warning',bad:'Critical'},risk=v=>Math.min(99,Math.round(v/TH.c*72));
+const raw=[['S01','Front-Right Suspension','Suspension','KBX 482A',1.6,'FR',92,-58,'1.4.2'],['S02','Rear-Left Axle Mount','Chassis','KBX 482A',1.9,'RL',78,-64,'1.4.2'],['S03','Rear-Right Axle Mount','Chassis','KBX 482A',2.3,'RR',81,-66,'1.4.2'],['S04','Front-Left Suspension','Suspension','KBX 482A',2.2,'FL',87,-61,'1.4.1'],['S05','Engine Mount Left','Engine','KBX 482A',1.4,'',95,-55,'1.4.2'],['S06','Front Brake Caliper','Brakes','KBX 482A',1.2,'',66,-70,'1.4.0'],['S07','Steering Rack Mount','Steering','KCD 117T',1.7,'FL',90,-60,'1.4.2'],['S08','Transmission Mount','Transmission','KCD 117T',2,'FR',73,-68,'1.4.2'],['S09','Rear Subframe','Chassis','KCD 117T',1.5,'RL',84,-63,'1.4.2'],['S10','Front Wheel Hub','Wheels','KDG 904M',1.8,'FL',88,-59,'1.4.2'],['S11','Engine Mount Right','Engine','KDG 904M',1.5,'RR',18,-77,'1.3.9'],['S12','Rear Suspension','Suspension','KDG 904M',2.1,'RL',79,-65,'1.4.2']];
+const sens=raw.map((r,i)=>({id:'BG-'+r[0],loc:r[1],comp:r[2],veh:r[3],base:r[4],z:r[5],bat:r[6],rssi:r[7],fw:r[8],i,h:[],sp:0}));
+const val=(s,t)=>Math.max(.2,s.base+.45*Math.sin(t/7+s.i)+.25*Math.sin(t/2.3+s.i*2)+(s.i==3?.6+1.8*Math.max(0,Math.sin(t/55)):0)+Math.random()*.25);
+sens.forEach(s=>{for(let t=0;t<3600;t++)s.h.push(val(s,t))});
+const cur=s=>s.h[s.h.length-1],gs=id=>sens.find(s=>s.id===id),clk=sec=>new Date(Date.now()-sec*1000).toLocaleTimeString('en-GB');
+const VEH=[{id:'KBX 482A',type:'Passenger SUV',insp:'12 days ago'},{id:'KCD 117T',type:'Light truck',insp:'25 days ago'},{id:'KDG 904M',type:'Minibus',insp:'38 days ago'}];
+const E=[[40,'BG-S04','Vibration exceeded warning threshold','warn'],[90,'BG-S11','Sensor communication restored','ok'],[220,'BG-S04','Increasing vibration trend detected','warn'],[330,'BG-S07','Fastener within normal range','ok'],[460,'BG-S02','Periodic scan completed','ok']].map(([s,id,m,l])=>({T:T-s,t:clk(s),id,m,l}));
+let A=[{id:'A-104',sev:'warn',title:'VIBRATION ABOVE WARNING THRESHOLD',sensor:'BG-S04',vib:4.8,risk:46,time:clk(40),status:'Active'},{id:'A-103',sev:'ok',title:'SENSOR COMMUNICATION LOST',sensor:'BG-S11',vib:0,risk:5,time:clk(900),status:'Resolved'},{id:'A-102',sev:'warn',title:'INCREASING VIBRATION TREND',sensor:'BG-S07',vib:4.6,risk:40,time:clk(3000),status:'Resolved'}];
+let W=[{id:'WO-2041',veh:'KBX 482A',fa:'F-04A',pr:'Persistent vibration, front-left suspension',tech:'J. Otieno',pri:'High',s:'In progress',due:'Today'},{id:'WO-2038',veh:'KCD 117T',fa:'F-08B',pr:'Replace low-battery sensor',tech:'A. Wanjiru',pri:'Medium',s:'Scheduled',due:'In 3 days'},{id:'WO-2030',veh:'KDG 904M',fa:'F-11A',pr:'Inspect engine mount torque',tech:'P. Kamau',pri:'Medium',s:'Overdue',due:'2 days ago'},{id:'WO-2027',veh:'KBX 482A',fa:'F-02A',pr:'Retorque axle mount',tech:'J. Otieno',pri:'Low',s:'Completed',due:'Last week'}];
+function ev(id,m,l){E.unshift({T,t:clk(0),id,m,l});E.length=Math.min(E.length,40)}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2600)}
+function alertFor(s,l,v){const ex=A.find(a=>a.sensor===s.id&&a.status!=='Resolved');
+ if(!ex){A.unshift({id:'A-'+an++,sev:l,title:l=='bad'?'CRITICAL STRUCTURAL LOOSENESS':'VIBRATION ABOVE WARNING THRESHOLD',sensor:s.id,vib:v,risk:risk(v),time:clk(0),status:'Active'});ev(s.id,l=='bad'?'Critical vibration detected':'Vibration exceeded warning threshold',l);flag=1}
+ else{if(l=='bad'&&ex.sev!='bad'){ex.sev='bad';ex.title='CRITICAL STRUCTURAL LOOSENESS';ev(s.id,'Critical vibration detected','bad');flag=1}if(v>ex.vib){ex.vib=v;ex.risk=risk(v)}}}
+
+/* ---------- helpers ---------- */
+const opts=(a,v)=>a.map(x=>`<option${x===v?' selected':''}>${x}</option>`).join('');
+const sOpts=(v,none)=>(none?`<option value="">None</option>`:'')+sens.map(s=>`<option value="${s.id}"${s.id===v?' selected':''}>${s.id} · ${s.loc}</option>`).join('');
+const btn=(a,id,t,c='')=>`<button class="b ${c}" data-a="${a}" data-id="${id}">${t}</button>`;
+const tile=(l,v,c='')=>`<div class="t"><span class="mute sm">${l}</span><b class="${c}">${v}</b></div>`;
+const tag=l=>`<span class="tag ${l}">${stT[l]}</span>`;
+const worst=a=>a.some(x=>x=='bad')?'bad':a.some(x=>x=='warn')?'warn':'ok';
+const vst=id=>worst(sens.filter(s=>s.veh===id).map(s=>st(cur(s))));
+const evHtml=n=>E.slice(0,n).map(e=>`<div class="ev"><i class="d ${e.l}"></i><span class="mute">${e.t}</span><b>${e.id}</b><span>${e.m}</span></div>`).join('');
+const spec=(v,dev)=>`<div class="sp">${Array.from({length:14},(_,i)=>{const k=i+1;return`<i style="height:${cl(100*((k==3?v/9:.05+.14/k)+((k==6||k==9)?Math.max(0,dev)/250:0)),4,100)}%"></i>`}).join('')}</div><div class="mute sm" style="display:flex;justify-content:space-between"><span>0 Hz</span><span>Spectrum</span><span>250 Hz</span></div>`;
+function car(id){const ss=sens.filter(s=>s.veh===id),P={FL:[62,72,-1],FR:[138,72,1],RL:[62,228,-1],RR:[138,228,1]};
+ let o=`<svg class="car" viewBox="0 0 200 300"><rect x="48" y="18" width="104" height="264" rx="46" fill="var(--car)" stroke="var(--line)"/><path d="M64 96Q100 80 136 96L130 130H70Z" fill="var(--card)" opacity=".7"/><path d="M70 176H130L136 214Q100 226 64 214Z" fill="var(--card)" opacity=".7"/>`;
+ for(const k in P){const s=ss.find(x=>x.z===k),[x,y,d]=P[k],c=s?`var(--${st(cur(s))})`:'var(--mute)',a=d<0?'end':'start',lx=x+d*16;
+  o+=`<circle cx="${x}" cy="${y}" r="9" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="3"/><circle cx="${x}" cy="${y}" r="4" fill="${c}"/><text x="${lx}" y="${y-1}" text-anchor="${a}">${k}</text><text class="mute" x="${lx}" y="${y+10}" text-anchor="${a}">${s?stT[st(cur(s))]:'N/A'}</text>`}
+ return o+'</svg>'}
+function chart(id,ds,n,marks){const c=document.getElementById(id);if(!c)return;const r=c.getBoundingClientRect(),d=devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;const g=c.getContext('2d');g.scale(d,d);
+ const W=r.width,H=r.height,L=30,B=20,Y=v=>H-B-v/15*(H-B-6),X=t=>L+t*(W-L),cs=getComputedStyle(document.documentElement),col=k=>cs.getPropertyValue(k).trim();g.font='11px Barlow,sans-serif';
+ [0,3,6,9,12,15].forEach(v=>{g.strokeStyle=col('--line');g.beginPath();g.moveTo(L,Y(v));g.lineTo(W,Y(v));g.stroke();g.fillStyle=col('--mute');g.fillText(v,4,Y(v)+4)});
+ for(let i=0;i<5;i++){g.fillStyle=col('--mute');g.fillText(new Date(Date.now()-n*1000*(1-i/4)).toLocaleTimeString('en-GB').slice(n<=300?0:0,n<=300?8:5),X(i/4)-(i==4?36:i?16:0),H-4)}
+ [[TH.w,'--warn'],[TH.c,'--bad']].forEach(([v,k])=>{g.strokeStyle=col(k);g.setLineDash([6,4]);g.beginPath();g.moveTo(L,Y(v));g.lineTo(W,Y(v));g.stroke();g.setLineDash([]);g.fillStyle=col(k);g.fillText(v,4,Y(v)-3)});
+ (marks||[]).forEach(e=>{const a=(T-e.T)/n;if(a<0||a>1)return;g.strokeStyle=col('--'+e.l);g.globalAlpha=.6;g.beginPath();g.moveTo(X(1-a),4);g.lineTo(X(1-a),H-B);g.stroke();g.globalAlpha=1});
+ ds.forEach(({d,c,fill})=>{const a=d.slice(-n),k=Math.max(1,Math.floor(a.length/300));g.strokeStyle=col(c);g.lineWidth=2;g.beginPath();let lx=0;for(let i=0;i<a.length;i+=k){lx=X(i/(a.length-1));i?g.lineTo(lx,Y(a[i])):g.moveTo(lx,Y(a[i]))}g.stroke();
+  if(fill){g.lineTo(lx,H-B);g.lineTo(L,H-B);g.fillStyle=col(c)+'22';g.fill()}g.lineWidth=1;g.fillStyle=col(c);g.beginPath();g.arc(X(1),Y(a[a.length-1]),3.5,0,7);g.fill()});}
+function diag(s){const a=s.h,base=mean(a.slice(0,2400)),c=mean(a.slice(-30)),dev=(c-base)/base*100,sh=cl(dev*.55,0,60),an=cl(Math.round(dev*1.4+(c>=TH.w?20:0)),0,100);return{base,c,dev,sh,an,conf:Math.round(cl(60+Math.abs(dev)/2,0,97)),tr:mean(a.slice(-60))-mean(a.slice(-300,-240))}}
+
+/* ---------- views ---------- */
+const V={};
+V.overview={h(){const w=sens.filter(s=>st(cur(s))=='warn').length,b=sens.filter(s=>st(cur(s))=='bad').length,h=Math.max(0,100-4*w-15*b),act=A.filter(a=>a.status!=='Resolved'),kz=sens.filter(s=>s.veh===S.veh&&s.z);
+ const zn={FL:'FRONT LEFT',FR:'FRONT RIGHT',RL:'REAR LEFT',RR:'REAR RIGHT'},vs=sens.filter(s=>s.veh===S.veh);
+ const comp=[...new Set(vs.map(s=>s.comp))].map(c=>`<div class="ev"><i class="d ${worst(vs.filter(s=>s.comp===c).map(s=>st(cur(s))))}"></i>${c}<span class="mute" style="margin-left:auto">${stN[worst(vs.filter(s=>s.comp===c).map(s=>st(cur(s))))]}</span></div>`).join('');
+ return`<div class="g4"><div class="c k"><div class="i ok">♥</div><div><span class="mute">SYSTEM HEALTH</span><b>${h}% <span class="tag ${h>90?'ok':h>75?'warn':'bad'}">${h>90?'HEALTHY':h>75?'DEGRADED':'AT RISK'}</span></b></div></div>
+ <div class="c k"><div class="i">🔩</div><div><span class="mute">MONITORED FASTENERS</span><b>${sens.length*2}</b><span class="ok sm">ONLINE</span></div></div>
+ <div class="c k"><div class="i warn">⚠</div><div><span class="mute">ACTIVE ALERTS</span><b>${act.length} <span class="tag ${worst(act.map(a=>a.sev))}">${act.length?(worst(act.map(a=>a.sev))=='bad'?'CRITICAL':'WARNING'):'NONE'}</span></b></div></div>
+ <div class="c k"><div class="i">📶</div><div><span class="mute">SENSOR NETWORK</span><b>${sens.length} / ${sens.length}</b><span class="ok sm">ONLINE</span></div></div></div>
+ <div class="g2"><div>
+ <section class="c"><div class="bar" style="justify-content:space-between"><div><h2 style="margin:0">LIVE STRUCTURAL TELEMETRY</h2><span class="mute sm">Vibration velocity (mm/s) · ${S.sel}</span></div><select data-k="range">${opts(Object.keys(R),S.range)}</select></div><canvas id="c1" style="height:250px"></canvas>
+ <div class="mute sm"><span style="color:var(--acc)">●</span> Vibration &nbsp; <span class="warn">- -</span> Warning (${TH.w}) &nbsp; <span class="bad">- -</span> Critical (${TH.c})</div></section>
+ <section class="c"><h2>STRUCTURAL ZONES · ${S.veh}</h2><div class="g4">${kz.map(s=>`<div class="z ${st(cur(s))}"><div class="sm">${zn[s.z]}</div><div>${tag(st(cur(s)))}</div><div>${f(cur(s))} mm/s</div></div>`).join('')}</div></section>
+ <div class="g3">${[['Predict Failures','Before they happen','🛡'],['Extend Lifespan','Reduce downtime','⚙'],['Increase Safety','Keep assets operating','📈']].map(x=>`<div class="c k"><div class="i">${x[2]}</div><div><b style="font-size:15px">${x[0]}</b><span class="mute sm">${x[1]}</span></div></div>`).join('')}</div></div>
+ <div><section class="c"><div class="bar" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">VEHICLE / ASSET STATUS</h2>${btn('ai','','⚡ Analyze','p')}</div><canvas id="c3d" style="height:240px"></canvas><div class="bar" style="margin:8px 0 0;align-items:start;justify-content:space-between"><div><div class="mute sm">VEHICLE ID</div><b style="font-size:20px">${S.veh}</b><div style="margin-top:8px">${comp}</div><div class="mute sm" style="margin-top:6px">Last scan: ${1+T%3} sec ago</div></div></div></section>
+ <section class="c"><div class="bar" style="justify-content:space-between"><h2 style="margin:0">RECENT EVENTS</h2>${btn('go','alerts','View all →')}</div>${evHtml(5)}</section></div></div>`},
+ d(){chart('c1',[{d:gs(S.sel).h,c:'--acc',fill:1}],R[S.range],E.filter(e=>e.l!='ok'))}};
+
+V.telemetry={h(){const s=gs(S.sel),n=R[S.range],a=s.h.slice(-n),m=mean(a),sd=Math.sqrt(mean(a.map(x=>(x-m)**2))),rms=Math.sqrt(mean(a.map(x=>x*x))),pk=Math.max(...s.h.slice(-30)),mx=Math.max(...a),d=diag(s),dom=24+s.i*2.5+d.dev*.12,nat=24+s.i*2.5,sh=(dom-nat)/nat*100;
+ return`<h1>Live Telemetry</h1><div class="c"><div class="bar"><select data-k="sel" aria-label="Sensor">${sOpts(S.sel)}</select><select data-k="cmp" aria-label="Compare with">${sOpts(S.cmp,1)}</select><select data-k="range">${opts(Object.keys(R),S.range)}</select>${btn('rec','','',S.rec?'x':'p').replace('></button>',`>${S.rec?'■ Stop recording':'● Start recording'}</button>`)}${btn('imp','','Simulate impact')}${btn('brk','','Simulate break loose','x')}</div>
+ <div class="bar sm"><span class="ok">● Streaming</span><span class="mute">Vehicle ${s.veh} · ${s.comp}</span><span class="mute">Last packet ${f(.2+(T*7%9)/10)} s</span><span class="mute">Latency ${24+T%13} ms</span>${S.rec?`<span class="bad">REC ${T-S.rec} s · ${(T-S.rec)*512} samples</span>`:''}</div>
+ <canvas id="c2" style="height:300px"></canvas><div class="mute sm"><span style="color:var(--acc)">●</span> ${s.id}${S.cmp?` &nbsp; <span style="color:var(--ok)">●</span> ${S.cmp}`:''} &nbsp; Vertical lines: warning, critical and impact events</div></div>
+ <div class="g5">${tile('Current',f(cur(s)),st(cur(s)))}${tile('RMS velocity',f(rms))}${tile('Peak (30 s)',f(pk))}${tile('Average',f(m))}${tile('Maximum',f(mx))}</div><div style="height:14px"></div>
+ <div class="e2"><div class="c"><h2>FREQUENCY ANALYSIS</h2><div class="g3">${tile('Dominant',f(dom)+' Hz')}${tile('Natural',f(nat)+' Hz')}${tile('Shift',f(sh)+'%',Math.abs(sh)>8?'warn':'')}</div><p class="sm mute">Resonance: ${Math.abs(sh)>8?'<span class="warn">frequency shift suggests reduced stiffness</span>':'none detected'}</p>${spec(cur(s),d.dev)}</div>
+ <div class="c"><h2>SIGNAL STATISTICS</h2><div class="g3">${tile('Std deviation',f(sd,2))}${tile('Variance',f(sd*sd,2))}${tile('Peak-to-RMS',f(pk/rms,2))}</div><p class="sm">Stability: <b class="${sd/m>.3?'warn':'ok'}">${sd/m>.3?'Unstable':'Stable'}</b></p><h2>EVENT MARKERS</h2>${evHtml(5)}</div></div>`},
+ d(){const s=gs(S.sel),ds=[{d:s.h,c:'--acc',fill:1}];if(S.cmp)ds.push({d:gs(S.cmp).h,c:'--ok'});chart('c2',ds,R[S.range],E.filter(e=>e.l!='ok'))}};
+
+V.sensors={h(){const on=sens.length,att=sens.filter(s=>st(cur(s))!='ok'||s.bat<25).length,s=gs(S.sel),d=diag(s);
+ return`<h1>Sensors</h1><div class="g5">${tile('Total sensors',sens.length)}${tile('Online',on,'ok')}${tile('Offline',0)}${tile('Need attention',att,att?'warn':'')}${tile('Network health',Math.round(100-att*4)+'%')}</div><div style="height:14px"></div>
+ <div class="c tb"><table><tr><th>Sensor</th><th>Vehicle</th><th>Location</th><th>Component</th><th>Status</th><th>Battery</th><th>Signal</th><th>Last packet</th><th>Vibration</th><th>Firmware</th></tr>${sens.map(x=>`<tr data-a="sel" data-id="${x.id}" class="${x.id===S.sel?'sel':''}"><td><b>${x.id}</b></td><td>${x.veh}</td><td>${x.loc}</td><td>${x.comp}</td><td><i class="d ok"></i>ONLINE</td><td class="${x.bat<25?'warn':''}">${x.bat}%</td><td>${x.rssi} dBm</td><td>${f(.3+((T*7+x.i*13)%15)/10)} s ago</td><td class="${st(cur(x))}">${f(cur(x))} mm/s</td><td>${x.fw}</td></tr>`).join('')}</table></div>
+ <div class="e2"><div class="c"><h2>${s.id} · ${s.loc}</h2><div class="kv"><div><span>Vehicle</span>${s.veh}</div><div><span>Component</span>${s.comp}</div><div><span>Installed</span>14 Jan 2025</div><div><span>Temperature</span>${f(34+s.i%5*1.3+cur(s))} °C</div><div><span>Orientation</span>${s.i%2?'Lateral (Y-up)':'Vertical (Z-up)'}</div><div><span>Calibration</span>${s.i==5?'<span class="warn">Due in 5 days</span>':'Calibrated'}</div><div><span>Live vibration</span><b class="${st(cur(s))}">${f(cur(s))} mm/s</b></div><div><span>Battery</span>${s.bat}%</div></div>${spec(cur(s),d.dev)}
+ <div class="bar" style="margin-top:12px">${['Add sensor','Rename','Assign to vehicle','Calibrate','Restart','Update firmware'].map(x=>btn('tt',x,x)).join('')}</div></div>
+ <div class="c"><h2>DIAGNOSTICS</h2><div class="kv"><div><span>Signal quality</span>${s.rssi>-70?'Good':'Weak'}</div><div><span>Packet loss</span>${f(.1+s.i*.07)}%</div><div><span>Latency</span>${24+s.i*2} ms</div><div><span>Sensor drift</span>${f(.02+s.i*.004,3)} g</div><div><span>Abnormal readings</span>${st(cur(s))=='ok'?'None':'Detected'}</div><div><span>Battery health</span>${s.bat<25?'<span class="warn">Replace soon</span>':'Good'}</div></div>
+ <canvas id="c3" style="height:170px"></canvas></div></div>`},d(){chart('c3',[{d:gs(S.sel).h,c:'--acc',fill:1}],300)}};
+
+V.vehicles={h(){const v=VEH.find(x=>x.id===S.veh),vs=sens.filter(s=>s.veh===v.id),all=VEH.map(x=>vst(x.id)),cnt=l=>all.filter(x=>x==l).length,rows=vs.flatMap(s=>['A','B'].map((x,j)=>({id:`F-${s.id.slice(4)}${x}`,s,v:cur(s)*(j?.8:1)})));
+ return`<h1>Vehicles / Assets</h1><div class="g5">${tile('Total assets',VEH.length)}${tile('Healthy',cnt('ok'),'ok')}${tile('Warnings',cnt('warn'),'warn')}${tile('Critical',cnt('bad'),'bad')}${tile('Offline',0)}</div><div style="height:14px"></div>
+ <div class="g3">${VEH.map(x=>{const l=vst(x.id),ss=sens.filter(s=>s.veh===x.id);return`<div class="c" data-a="veh" data-id="${x.id}" style="cursor:pointer;${x.id===S.veh?'border-color:var(--acc)':''}"><b style="font-size:18px">${x.id}</b> ${tag(l)}<div class="mute sm">${x.type} · ${ss.length} sensors · Inspected ${x.insp}</div><div class="sm">Health ${100-ss.filter(s=>st(cur(s))=='warn').length*4-ss.filter(s=>st(cur(s))=='bad').length*15}% · Active alerts ${A.filter(a=>a.status!=='Resolved'&&gs(a.sensor).veh===x.id).length}</div></div>`}).join('')}</div>
+ <div class="e2"><div class="c"><div class="bar" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">${v.id} · 3D FASTENER MAP</h2>${btn('ai','','⚡ Analyze','p')}</div><canvas id="c3d" style="height:320px"></canvas><div class="mute sm">Drag to rotate · tap a sensor node</div></div>
+ <div class="c tb"><h2>FASTENERS</h2><table><tr><th>Bolt</th><th>Location</th><th>Sensor</th><th>Condition</th><th>Vibration</th><th>Risk</th></tr>${rows.map(r=>`<tr><td><b>${r.id}</b></td><td>${r.s.loc}</td><td>${r.s.id}</td><td>${tag(st(r.v))}</td><td>${f(r.v)} mm/s</td><td>${risk(r.v)}%</td></tr>`).join('')}</table></div></div>
+ <div class="c"><h2>VEHICLE HISTORY</h2>${[['Inspection','Routine fastener inspection, no findings','12 days ago'],['Bolt replacement','Front-left suspension bolt replaced','45 days ago'],['Alert','Increasing vibration trend, resolved by retorque','2 months ago']].map(x=>`<div class="ev"><b>${x[0]}</b><span>${x[1]}</span><span class="mute" style="margin-left:auto">${x[2]}</span></div>`).join('')}</div>`}};
+
+V.alerts={h(){const c=l=>A.filter(a=>a.status!=='Resolved'&&a.sev==l).length,sv={ok:'Information',warn:'Warning',bad:'Critical'};
+ return`<h1>Alerts</h1><div class="g5">${tile('Active',A.filter(a=>a.status=='Active').length)}${tile('Critical',c('bad'),'bad')}${tile('Warning',c('warn'),'warn')}${tile('Acknowledged',A.filter(a=>a.status=='Acknowledged').length)}${tile('Resolved',A.filter(a=>a.status=='Resolved').length,'ok')}</div><div style="height:14px"></div>
+ <div class="c sm mute">Severity: 🟢 Information · 🔵 Notice · 🟡 Warning · 🟠 High risk · 🔴 Critical. Notified via ${Object.keys(S.n).filter(k=>S.n[k]).join(', ')||'no channels'}.</div>
+ ${A.map(a=>{const s=gs(a.sensor),open=a.status!=='Resolved';return`<div class="c al ${a.sev}"><b style="font-size:16px">${a.title}</b> <span class="tag">${a.status}</span><div class="kv"><div><span>Alert</span>${a.id}</div><div><span>Sensor</span>${a.sensor}</div><div><span>Location</span>${s.loc}</div><div><span>Vehicle</span>${s.veh}</div><div><span>Vibration</span>${f(a.vib)} mm/s</div><div><span>Threshold</span>${a.sev=='bad'?TH.c:TH.w} mm/s</div><div><span>Risk</span>${a.risk}%</div><div><span>Detected</span>${a.time}</div></div>
+ ${open?`<div class="bar" style="margin:0">${btn('ack',a.id,'Acknowledge')}${btn('inv',a.id,'Investigating')}${btn('sch',a.id,'Schedule inspection')}${btn('esc',a.id,'Escalate','x')}${btn('res',a.id,'Resolve','p')}</div>`:`<span class="mute sm">Resolved · technician response logged</span>`}</div>`}).join('')}`}};
+
+V.diagnostics={h(){const s=gs(S.sel),d=diag(s),f1=['A','B'].map((x,j)=>{const v=cur(s)*(j?.8:1);return`<tr><td><b>F-${s.id.slice(4)}${x}</b></td><td>${tag(st(v))}</td><td>${Math.round(cl(d.dev*(j?.6:1),0,95))}%</td><td>${st(v)=='ok'?'Torque nominal':'Torque below spec'}</td><td>${risk(v)}%</td></tr>`}).join(''),p=d.an>70?['Immediate inspection','Within hours']:d.an>35?['Inspect and torque fastener','Within 24 h']:['No action required','Routine, 30 days'];
+ return`<h1>Diagnostics</h1><div class="bar"><select data-k="sel" aria-label="Sensor">${sOpts(S.sel)}</select>${['Signal replay','Compare with history','Compare sensors','Export report'].map(x=>btn('tt',x,x)).join('')}</div>
+ <div class="g4"><div class="c">${tile('Diagnostic health',Math.round(100-d.an*.6)+'%')}</div><div class="c">${tile('Anomaly score',d.an+'/100',d.an>70?'bad':d.an>35?'warn':'ok')}</div><div class="c">${tile('Structural risk',risk(cur(s))+'%')}</div><div class="c">${tile('Confidence',d.conf+'%')}</div></div>
+ <div class="c"><h2>WHY BOLTGUARD THINKS SO</h2><div class="ex" style="border-color:var(--${d.an>70?'bad':d.an>35?'warn':'ok'})">${d.dev>20?`Possible fastener loosening detected. Vibration amplitude increased ${Math.round(d.dev)}% above baseline while dominant frequency shifted by ${Math.round(d.sh)}%.`:`${s.id} is consistent with its baseline (${Math.round(d.dev)}% deviation). No fastener loosening pattern found.`}</div></div>
+ <div class="c"><h2>BASELINE COMPARISON</h2><div class="flow"><div><span class="mute sm">Normal baseline</span><b> ${f(d.base)} mm/s</b></div>→<div><span class="mute sm">Current signal</span><b> ${f(d.c)} mm/s</b></div>→<div><span class="mute sm">Deviation</span><b class="${d.dev>20?'warn':''}"> ${d.dev>0?'+':''}${Math.round(d.dev)}%</b></div>→<div><span class="mute sm">Anomaly score</span><b> ${d.an}</b></div></div></div>
+ <div class="e2"><div class="c"><h2>SIGNAL ANALYSIS</h2><canvas id="c4" style="height:190px"></canvas>${spec(d.c,d.dev)}</div><div class="c"><h2>PREDICTIVE ANALYSIS</h2><div class="kv"><div><span>Risk trend</span><b class="${d.tr>.15?'warn':''}">${d.tr>.15?'↑ Rising':d.tr<-.15?'↓ Falling':'→ Steady'}</b></div><div><span>Failure probability</span>${Math.round(d.an*.6)}%</div><div><span>Time to inspection</span>${p[1]}</div></div><p><b>Recommended action:</b> ${p[0]}</p><h2>FASTENER HEALTH</h2><div class="tb"><table><tr><th>Bolt</th><th>Condition</th><th>Looseness</th><th>Torque</th><th>Risk</th></tr>${f1}</table></div></div></div>`},d(){chart('c4',[{d:gs(S.sel).h,c:'--acc',fill:1}],300)}};
+
+V.maintenance={h(){const top=[...sens].sort((a,b)=>cur(b)-cur(a))[0],l=st(cur(top)),n=x=>W.filter(w=>w.s==x).length,rec=l=='ok'?['No action required','Low','All fasteners within range']:l=='warn'?['Inspect and torque fastener','High','Persistent vibration anomaly detected']:['Immediate inspection and retorque','Critical','Critical looseness signature detected'];
+ return`<h1>Maintenance</h1><div class="g5">${tile('Upcoming',n('Scheduled'))}${tile('Overdue',n('Overdue'),n('Overdue')?'warn':'')}${tile('Active jobs',n('In progress'))}${tile('Completed',n('Completed'),'ok')}${tile('Critical',W.filter(w=>w.pri=='High'&&w.s!='Completed').length,'bad')}</div><div style="height:14px"></div>
+ <div class="c"><h2>RECOMMENDED MAINTENANCE</h2><b>${top.id} · ${top.loc}</b><div class="kv"><div><span>Recommendation</span>${rec[0]}</div><div><span>Priority</span><b class="${l}">${rec[1]}</b></div><div><span>Reason</span>${rec[2]}</div></div>${btn('wo',top.id,'Create work order','p')}</div>
+ <div class="c tb"><h2>WORK ORDERS</h2><table><tr><th>ID</th><th>Vehicle</th><th>Fastener</th><th>Problem</th><th>Technician</th><th>Priority</th><th>Status</th><th>Due</th><th></th></tr>${W.map(w=>`<tr><td><b>${w.id}</b></td><td>${w.veh}</td><td>${w.fa}</td><td>${w.pr}</td><td>${w.tech}</td><td>${w.pri}</td><td><span class="tag ${w.s=='Overdue'?'warn':w.s=='Completed'?'ok':''}">${w.s}</span></td><td>${w.due}</td><td>${w.s=='Completed'?'':btn('adv',w.id,'Advance')}</td></tr>`).join('')}</table></div>
+ <div class="e2"><div class="c"><h2>MAINTENANCE ACTIONS</h2><div class="tg">${['Inspect bolt','Retorque bolt','Replace bolt','Replace sensor','Calibrate sensor','Inspect structure'].map(x=>btn('tt',x,x)).join('')}</div><h2 style="margin-top:14px">REPORTS</h2><div class="tg">${['Maintenance','Vehicle health','Fastener','Sensor','Cost'].map(x=>btn('tt',x+' report',x)).join('')}</div></div>
+ <div class="c"><h2>HISTORY</h2>${[['Retorque axle mount','J. Otieno · KES 4,500','Vibration 4.9 → 1.8 mm/s'],['Replace suspension bolt','A. Wanjiru · KES 12,200','Vibration 6.2 → 2.1 mm/s']].map(x=>`<div class="ev"><b>${x[0]}</b><span class="mute">${x[1]}</span><span class="ok" style="margin-left:auto">${x[2]}</span></div>`).join('')}</div></div>`}};
+
+V.settings={h(){return`<h1>Settings</h1><div class="e2"><div class="c"><h2>THRESHOLDS (mm/s)</h2><div class="bar"><label>Warning <input type="number" data-k="w" min=".5" max="14" step=".1" value="${TH.w}" style="width:80px"></label><label>Critical <input type="number" data-k="c" min="1" max="15" step=".1" value="${TH.c}" style="width:80px"></label></div>
+ <div style="display:flex;height:14px;border-radius:7px;overflow:hidden"><i style="flex:${TH.w};background:var(--ok)"></i><i style="flex:${TH.c-TH.w};background:var(--warn)"></i><i style="flex:${15-TH.c};background:var(--bad)"></i></div><p class="mute sm">Normal 0–${TH.w} · Warning ${TH.w}–${TH.c} · Critical ${TH.c}–15. Changes apply to every screen immediately.</p>
+ <h2>SYSTEM</h2><div class="bar"><label>Refresh <select data-k="rf">${opts(['1 s','2 s','5 s'],S.rf||'1 s')}</select></label><label>Time zone <select><option>UTC+3 Nairobi</option><option>UTC</option></select></label><label>Retention <select><option>90 days</option><option>1 year</option></select></label></div></div>
+ <div class="c"><h2>NOTIFICATIONS</h2><div class="tg">${Object.keys(S.n).map(k=>`<button class="b ${S.n[k]?'on':''}" data-a="tn" data-id="${k}">${k}</button>`).join('')}</div><h2 style="margin-top:14px">INTEGRATIONS</h2><div class="tg">${Object.keys(S.ig).map(k=>`<button class="b ${S.ig[k]?'on':''}" data-a="ti" data-id="${k}">${k}</button>`).join('')}</div></div></div>
+ <div class="e2"><div class="c tb"><h2>USERS</h2><table><tr><th>Name</th><th>Role</th></tr>${[['Ronny','Administrator'],['J. Otieno','Technician'],['M. Njeri','Engineer'],['Fleet desk','View-only']].map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td></tr>`).join('')}</table></div>
+ <div class="c"><h2>SYSTEM LOG</h2>${evHtml(4)}<div class="ev"><span class="mute">${clk(600)}</span><b>Admin</b><span>Threshold configuration viewed</span></div></div></div>`}};
+
+/* ---------- actions ---------- */
+const ACT={go:id=>{S.v=id;render();scrollTo(0,0)},theme:()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue('--bg').trim()=='#060f1f';r.dataset.theme=d?'light':'dark';render()},
+ sel:id=>{S.sel=id;render()},veh:id=>{S.veh=id;render()},tt:id=>toast(id+': available once the backend is connected'),
+ rec:()=>{S.rec=S.rec?0:T;if(!S.rec)toast('Recording saved. Download needs the backend.');render()},
+ imp:()=>{gs(S.sel).sp=5;ev(S.sel,'Impact event','warn')},brk:()=>{gs(S.sel).sp=11;ev(S.sel,'Impact event: possible break loose','bad')},
+ ack:id=>up(id,'Acknowledged'),inv:id=>up(id,'Investigating'),res:id=>up(id,'Resolved'),esc:id=>{const a=A.find(x=>x.id===id);a.sev='bad';a.status='Escalated';toast('Escalated to supervisor');render()},
+ sch:id=>{const a=A.find(x=>x.id===id);mkwo(gs(a.sensor));up(id,'Investigating')},wo:id=>mkwo(gs(id)),
+ adv:id=>{const w=W.find(x=>x.id===id);w.s=w.s=='Scheduled'||w.s=='Overdue'?'In progress':'Completed';render()},
+ tn:id=>{S.n[id]=!S.n[id];render()},ti:id=>{S.ig[id]=!S.ig[id];render()}};
+function up(id,s){A.find(a=>a.id===id).status=s;render()}
+function mkwo(s){W.unshift({id:'WO-'+wn++,veh:s.veh,fa:'F-'+s.id.slice(4)+'A',pr:'Inspect '+s.loc.toLowerCase()+' fastener',tech:'Unassigned',pri:st(cur(s))=='bad'?'High':'Medium',s:'Scheduled',due:'Tomorrow'});toast('Work order created');if(S.v=='maintenance')render()}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t&&ACT[t.dataset.a])ACT[t.dataset.a](t.dataset.id,t)});
+document.addEventListener('change',e=>{const k=e.target.dataset.k;if(!k)return;const v=e.target.value;
+ if(k=='w'||k=='c'){TH[k]=+v;if(TH.c<=TH.w){k=='w'?TH.c=+(TH.w+1).toFixed(1):TH.w=+(TH.c-1).toFixed(1)}}else if(k=='rf'){S.rf=v;clearInterval(iv);iv=setInterval(tick,parseInt(v)*1000)}else S[k]=v;render()});
+
+/* ---------- 3D + AI ---------- */
+const Q={yaw:.7,pit:.4,drag:0,hit:[]},TWO=Math.PI*2;let lr=0;
+const MD=(()=>{const E=[],box=(x0,x1,y0,y1,z0,z1)=>{const p=[[x0,y0,z0],[x1,y0,z0],[x1,y1,z0],[x0,y1,z0],[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]];[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]].forEach(([a,b])=>E.push([p[a],p[b]]))};
+ box(-.95,.95,.3,.8,-2.2,2.2);const b=[[-.85,.8,-1.1],[.85,.8,-1.1],[.85,.8,.9],[-.85,.8,.9]],t=[[-.7,1.3,-.8],[.7,1.3,-.8],[.7,1.3,.5],[-.7,1.3,.5]];
+ for(let i=0;i<4;i++)E.push([b[i],b[(i+1)%4]],[t[i],t[(i+1)%4]],[b[i],t[i]]);
+ [[-1,1.4],[1,1.4],[-1,-1.4],[1,-1.4]].forEach(([sx,z])=>{const x=sx*.98;for(let i=0;i<14;i++){const a=i/14*TWO,c=(i+1)/14*TWO;E.push([[x,.38+Math.sin(a)*.38,z+Math.cos(a)*.38],[x,.38+Math.sin(c)*.38,z+Math.cos(c)*.38]]);if(i%2==0)E.push([[x,.38,z],[x,.38+Math.sin(a)*.38,z+Math.cos(a)*.38]])}});
+ E.push([[-.95,.55,.4],[.95,.55,.4]],[[-.95,.55,-.6],[.95,.55,-.6]]);return E})();
+const PZ={FL:[-.95,.55,1.4],FR:[.95,.55,1.4],RL:[-.95,.55,-1.4],RR:[.95,.55,-1.4]},PC={Engine:[0,.8,1.7],Brakes:[-.9,.35,1],Transmission:[0,.4,.2],Steering:[.3,.9,1.2],Chassis:[0,.4,-.4],Suspension:[0,.3,0],Wheels:[0,.4,1.4]},pos=s=>PZ[s.z]||PC[s.comp]||[0,.5,0];
+function draw3d(c,o={}){const r=c.getBoundingClientRect(),d=devicePixelRatio||1,W=r.width,H=r.height;if(c.width!==Math.round(W*d)||c.height!==Math.round(H*d)){c.width=Math.round(W*d);c.height=Math.round(H*d)}
+ const g=c.getContext('2d');g.setTransform(d,0,0,d,0,0);g.clearRect(0,0,W,H);
+ const cs=getComputedStyle(document.documentElement),col=k=>cs.getPropertyValue(k).trim(),ac=o.hud?'#4cc7ff':col('--acc'),t=performance.now()/1000,sc=o.sc||Math.min(W/7.5,H/4.2),cy=Math.cos(Q.yaw),sy=Math.sin(Q.yaw),cp=Math.cos(Q.pit),sp=Math.sin(Q.pit),
+ P=([x,y,z])=>{const X=x*cy+z*sy,Z=-x*sy+z*cy,Y=y-.7,Y2=Y*cp+Z*sp,Z2=-Y*sp+Z*cp,k=9/(9+Z2);return[W/2+X*k*sc,H/2+Y2*0-Y2*k*sc,k]};
+ g.strokeStyle=ac;g.lineWidth=1;
+ if(!o.nf)[[3.1,.35,[]],[2.7,.2,[6,8]]].forEach(([R,al,dash],j)=>{g.globalAlpha=al;g.setLineDash(dash);g.lineDashOffset=-t*20*j;g.beginPath();for(let i=0;i<=64;i++){const a=i/64*TWO,p=P([Math.cos(a)*R,0,Math.sin(a)*R]);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])}g.stroke()});
+ g.setLineDash([]);g.globalAlpha=o.scan?.8:.3;const sy2=((t*.6)%1)*1.5,sq=[[-1.3,sy2,-2.5],[1.3,sy2,-2.5],[1.3,sy2,2.5],[-1.3,sy2,2.5],[-1.3,sy2,-2.5]];g.beginPath();sq.forEach((q,i)=>{const p=P(q);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])});g.stroke();
+ g.globalAlpha=.85;g.lineWidth=1.3;g.shadowColor=ac;g.shadowBlur=o.hud?10:5;g.beginPath();MD.forEach(([a,b])=>{const p=P(a),q=P(b);g.moveTo(p[0],p[1]);g.lineTo(q[0],q[1])});g.stroke();g.shadowBlur=0;
+ const hits=[];sens.filter(s=>s.veh===S.veh).forEach(s=>{const p=P(pos(s)),l=st(cur(s)),cc=col('--'+l),pu=(Math.sin(t*3+s.i)+1)/2,top=S.ai&&S.ai.top===s.id;
+  g.globalAlpha=.25;g.fillStyle=cc;g.beginPath();g.arc(p[0],p[1],(9+pu*5)*p[2],0,TWO);g.fill();g.globalAlpha=1;g.beginPath();g.arc(p[0],p[1],4.5*p[2],0,TWO);g.fill();
+  if(top){g.strokeStyle=cc;g.lineWidth=2;g.beginPath();g.arc(p[0],p[1],(14+((t*20)%16))*p[2],0,TWO);g.stroke()}
+  if(!o.nl){g.fillStyle=col('--ink');g.font='600 11px Barlow,sans-serif';g.fillText(s.id.slice(3)+' '+f(cur(s)),p[0]+9,p[1]-9)}hits.push({id:s.id,x:p[0],y:p[1]})});
+ g.globalAlpha=1;if(!o.hud)Q.hit=hits}
+const STEPS=['Calibrating sensor array','Streaming vibration channels','Computing baseline deviation','Running anomaly model','Correlating fastener signatures','Estimating looseness and torque','Compiling assessment'];
+function hud(g,W,H,t,p){const cx=W/2,cy=H/2,R=Math.min(W,H)*.27,c='#4cc7ff';g.save();g.translate(cx,cy);g.strokeStyle=c;
+ [[1,2,1,[40,18],.5,.9],[1.12,1,1,[3,9],-.3,.6],[1.25,3,.7,[],.8,.7],[.88,1,1,[12,6,2,6],-.9,.5]].forEach(([k,w,a,dash,sp,al])=>{g.save();g.rotate(t*sp);g.globalAlpha=al;g.lineWidth=w;g.setLineDash(dash);g.beginPath();g.arc(0,0,R*k,0,TWO*a);g.stroke();g.restore()});
+ g.globalAlpha=.5;g.lineWidth=1;for(let i=0;i<72;i++){const a=i/72*TWO+t*.1,l=i%6?6:14,r0=R*1.38;g.beginPath();g.moveTo(Math.cos(a)*r0,Math.sin(a)*r0);g.lineTo(Math.cos(a)*(r0+l),Math.sin(a)*(r0+l));g.stroke()}
+ g.globalAlpha=1;g.lineWidth=6;g.strokeStyle='#19d57f';g.beginPath();g.arc(0,0,R*1.5,-Math.PI/2,-Math.PI/2+p*TWO);g.stroke();
+ const a=t*2;g.globalAlpha=.22;g.fillStyle=c;g.beginPath();g.moveTo(0,0);g.arc(0,0,R,a,a+.5);g.fill();g.restore();
+ g.globalAlpha=1;g.fillStyle=c;g.textAlign='center';g.font='600 14px Barlow,sans-serif';g.fillText('BOLTGUARD AI',cx,cy-R*1.62);g.font='700 34px Barlow,sans-serif';g.fillText(Math.round(p*100)+'%',cx,cy+R*1.62+8);g.font='500 13px Barlow,sans-serif';g.fillText((STEPS[Math.max(0,S.step)]||'').toUpperCase(),cx,cy+R*1.62+30);g.textAlign='left'}
+function jarvis(now){const t=(now-S.aiRun)/1000,p=Math.min(1,Math.max(0,t/7)),c=$('#jc');draw3d(c,{hud:1,nf:1,nl:1,scan:1,sc:Math.min(innerWidth,innerHeight)*.092});
+ const r=c.getBoundingClientRect();hud(c.getContext('2d'),r.width,r.height,t,p);
+ const i=Math.min(STEPS.length-1,Math.floor(p*STEPS.length));if(i>S.step){S.step=i;$('#jlog').insertAdjacentHTML('beforeend',`<div>&gt; ${STEPS[i]}…</div>`)}
+ if(now-lr>200){lr=now;$('#jr').innerHTML=sens.filter(s=>s.veh===S.veh).map(s=>`<div>${s.id} <b>${f(cur(s))}</b> mm/s</div>`).join('')+'<div>SAMPLE RATE <b>512 Hz</b></div>'}
+ if(t>7.6)finish()}
+function loop(now){if(!Q.drag)Q.yaw+=S.aiRun?.012:.004;const c=$('#c3d');if(c&&!S.aiRun)draw3d(c);if(S.aiRun)jarvis(now);requestAnimationFrame(loop)}
+document.addEventListener('pointerdown',e=>{if(e.target.id==='c3d')Q.drag={x:e.clientX,y:e.clientY,m:0}});
+document.addEventListener('pointermove',e=>{const d=Q.drag;if(!d)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;d.m+=Math.abs(dx)+Math.abs(dy);Q.yaw+=dx*.008;Q.pit=cl(Q.pit+dy*.005,-.2,1.2);d.x=e.clientX;d.y=e.clientY});
+document.addEventListener('pointerup',e=>{const d=Q.drag;Q.drag=0;const c=$('#c3d');if(!d||d.m>=6||!c)return;const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,h=Q.hit.map(n=>({n,d:Math.hypot(n.x-x,n.y-y)})).sort((a,b)=>a.d-b.d)[0];if(h&&h.d<24)sensorPanel(h.n.id)});
+/* slide panels */
+function panels(l){const e=$('#sl');e.innerHTML=l.map((h,i)=>`<div class="sp3" style="transition-delay:${i*130}ms">${h}</div>`).join('');document.body.classList.add('pan');requestAnimationFrame(()=>requestAnimationFrame(()=>e.querySelectorAll('.sp3').forEach(x=>x.classList.add('in'))))}
+function closePanels(){document.querySelectorAll('.sp3').forEach(x=>{x.style.transitionDelay='0ms';x.classList.remove('in')});document.body.classList.remove('pan');if(S.ai)S.ai.top=0}
+function sensorPanel(id){const s=gs(id),l=st(cur(s)),d=diag(s);panels([`<div class="ph"><b>${s.id}</b><span class="mute sm">${s.loc}</span>${btn('cp','','✕')}</div>${tag(l)}<div class="kv"><div><span>Vibration</span><b class="${l}">${f(cur(s))} mm/s</b></div><div><span>Vs baseline</span>${Math.round(d.dev)}%</div><div><span>Battery</span>${s.bat}%</div><div><span>Signal</span>${s.rssi} dBm</div><div><span>Component</span>${s.comp}</div><div><span>Firmware</span>${s.fw}</div></div>${spec(cur(s),d.dev)}<div class="bar" style="margin-top:10px">${btn('dg',id,'Open diagnostics')}${btn('ai','','Analyze vehicle','p')}</div>`])}
+/* analysis (rule-based, runs locally) */
+function analyze(){if(S.aiRun)return;closePanels();S.aiRun=performance.now();S.step=-1;$('#jlog').innerHTML='';$('#jv').classList.add('on')}
+function finish(){S.aiRun=0;$('#jv').classList.remove('on');const vs=sens.filter(s=>s.veh===S.veh).map(s=>({s,d:diag(s),v:cur(s)})).sort((a,b)=>(b.v+b.d.an/20)-(a.v+a.d.an/20)),top=vs[0],l=st(top.v),mx=Math.max(...vs.map(x=>risk(x.v))),cf=Math.round(mean(vs.map(x=>x.d.conf))),r={vs,top,l,mx,cf,t:clk(0)};S.ai={top:top.s.id,r};showResults(r);toast('Analysis complete')}
+function showResults(r){const lv=r.l;S.ai.top=r.top.s.id;
+ const p1=`<div class="ph"><b>AI ASSESSMENT</b><span class="mute sm">${S.veh} · ${r.t}</span>${btn('cp','','✕')}</div><div class="big ${lv}">${r.mx}%</div><div class="mute sm">STRUCTURAL RISK</div><p>${lv=='ok'?'All fasteners nominal':'Possible fastener loosening at '+r.top.s.loc}.</p><div class="kv"><div><span>Confidence</span>${r.cf}%</div><div><span>Sensors analysed</span>${r.vs.length}</div></div>`,
+ p2=`<div class="ph"><b>FINDINGS</b></div>${r.vs.slice(0,3).map(x=>`<div class="fi"><b>${x.s.id}</b> · ${x.s.loc} ${tag(st(x.v))}<div class="sm mute">${x.d.dev>20?`Vibration ${Math.round(x.d.dev)}% above baseline, frequency shifted ${Math.round(x.d.sh)}%. Loosening signature.`:`Within ${Math.abs(Math.round(x.d.dev))}% of baseline. No loosening signature.`}</div></div>`).join('')}`,
+ p3=`<div class="ph"><b>FASTENER RISK RANKING</b></div>${r.vs.map(x=>`<div class="rk"><span>${x.s.id}</span><div><i class="${st(x.v)}" style="width:${risk(x.v)}%"></i></div><b>${risk(x.v)}%</b></div>`).join('')}`,
+ p4=`<div class="ph"><b>RECOMMENDED ACTIONS</b></div><p>${lv=='ok'?'Continue routine monitoring. Next inspection in 30 days.':lv=='warn'?`Inspect and torque the fastener at ${r.top.s.loc} within 24 h.`:`Stop the vehicle and inspect ${r.top.s.loc} now.`}</p><div class="bar">${lv!='ok'?btn('wo',r.top.s.id,'Create work order','p'):''}${btn('dg',r.top.s.id,'Open diagnostics')}${btn('ai','','Re-run')}</div>`;
+ panels([p1,p2,p3,p4])}
+Object.assign(ACT,{ai:analyze,cp:closePanels,jx:()=>{S.aiRun=0;$('#jv').classList.remove('on')},rp:()=>S.ai&&showResults(S.ai.r),dg:id=>{S.sel=id;closePanels();ACT.go('diagnostics')}});
+V.ai={h(){return`<h1>AI Analysis</h1><div class="bar"><select data-k="veh" aria-label="Vehicle">${opts(VEH.map(v=>v.id),S.veh)}</select><button class="b p" data-a="ai" style="font-size:16px;padding:10px 22px">⚡ Analyze ${S.veh}</button>${S.ai&&S.ai.r?btn('rp','','Show last analysis'):''}</div><div class="c"><canvas id="c3d" style="height:480px"></canvas><div class="mute sm">Drag to rotate · tap a sensor node for details. The analysis compares each sensor with its baseline and scores looseness risk.</div></div>`}};
+requestAnimationFrame(loop);
+/* ---------- shell ---------- */
+const NAV=[['overview','🏠','Overview'],['telemetry','📡','Live Telemetry'],['sensors','📶','Sensors'],['vehicles','🚗','Vehicles'],['alerts','🚨','Alerts'],['diagnostics','🧠','Diagnostics'],['ai','🤖','AI Analysis'],['maintenance','🔧','Maintenance'],['settings','⚙️','Settings']];
+$('#nav').innerHTML=NAV.map(n=>`<button data-a="go" data-id="${n[0]}">${n[1]} ${n[2]}${n[0]=='alerts'?'<span class="bd" id="bd"></span>':''}</button>`).join('')+'<small>BoltGuard v1.0.0<br>Stronger Assets. Safer Tomorrow.</small>';
+function render(){const v=V[S.v];$('#main').innerHTML=v.h();v.d&&v.d();const c3=$('#c3d');c3&&draw3d(c3);document.querySelectorAll('nav [data-id]').forEach(b=>b.classList.toggle('on',b.dataset.id===S.v));$('#bd').textContent=A.filter(a=>a.status!=='Resolved').length||''}
+const LIVE=['overview','telemetry','sensors','vehicles','diagnostics'];
+function tick(){T++;sens.forEach(s=>{s.h.push(val(s,T)+s.sp);s.sp*=.88;s.h.shift()});sens.forEach(s=>{const l=st(cur(s));if(l!='ok')alertFor(s,l,cur(s))});
+ $('#clk').textContent=new Date().toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'medium'});
+ if(flag){flag=0;toast('New alert raised');if(S.v=='alerts'||S.v=='settings'){render();return}}
+ if(LIVE.includes(S.v)&&!/SELECT|INPUT/.test(document.activeElement.tagName)&&!Q.drag&&!S.aiRun)render();else $('#bd').textContent=A.filter(a=>a.status!=='Resolved').length||''}
+let iv=setInterval(tick,1000);render();tick();
+</script></body></html>
